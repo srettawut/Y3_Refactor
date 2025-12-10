@@ -14,4 +14,7 @@ public static class EventManager
 
     public static event Action OnStageCleared;
     public static void RaiseStageCleared() => OnStageCleared?.Invoke();
+
+    public static event Action<float,float> OnBuffMovementSpeed;
+    public static void RaiseBuffMovementSpeed(float duration, float multiplier) => OnBuffMovementSpeed?.Invoke(duration, multiplier);
 }

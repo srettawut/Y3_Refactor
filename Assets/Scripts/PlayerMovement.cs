@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -32,11 +33,26 @@ public class PlayerMovement : MonoBehaviour
     [Header("Animation")]
     public PlayerAnimation playerAnimation;
 
+    [Header("Powerup")]
+    float baseSpeed;
+
+    private void OnEnable()
+    {
+        EventManager.OnBuffMovementSpeed += SpeedBoost;
+    }
+    private void OnDisable()
+    {
+        EventManager.OnBuffMovementSpeed -= SpeedBoost;
+    }
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
         ResetJump();
+
+        //Powerup
+        baseSpeed = moveSpeed;
     }
 
     private void Update()
@@ -124,5 +140,19 @@ public class PlayerMovement : MonoBehaviour
     private void ResetJump()
     {
         readyToJump = true;
+    }
+
+    // Powerup
+
+
+    void SpeedBoost(float duration, float multiplier)
+    {
+        StartCoroutine(ISpeedBoost(duration, 3f));
+    }
+    IEnumerator ISpeedBoost(float duration, float multiplier)
+    {
+        moveSpeed = baseSpeed * multiplier;
+        yield return new WaitForSeconds(duration);
+        moveSpeed = baseSpeed;
     }
 }
