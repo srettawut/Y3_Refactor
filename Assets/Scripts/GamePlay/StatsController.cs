@@ -9,7 +9,7 @@ public class StatsController : MonoBehaviour
     [SerializeField] TMP_Text BuffDurationText;
 
     [Header("Stats")]
-    [SerializeField] float atk = 100;
+    [SerializeField] public static float atk = 100;
     [SerializeField] float energyMultiplier = 1;
 
     public static float CurrentEnergy;

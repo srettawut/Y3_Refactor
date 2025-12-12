@@ -8,6 +8,7 @@ public class Pickup : MonoBehaviour
         if(col.tag == "Player")
         {
             EventManager.RaiseEnergyCollected(EnergyAmount);
+            gameObject.SetActive(false);
         }
     }
 }
